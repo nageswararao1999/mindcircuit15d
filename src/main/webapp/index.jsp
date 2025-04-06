@@ -3,153 +3,140 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Netflix Clone – Admin Login</title>
+  <title>Calculator – Nageswararao Project</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body, html {
-      height: 100%;
-      font-family: Arial, sans-serif;
-    }
-
-    .background {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 2px;
-      z-index: -2;
-    }
-
-    .background img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0.4;
-    }
-
-    .overlay {
-      background: rgba(0, 0, 0, 0.8);
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-    }
-
-    .login-container {
-      height: 100%;
+    body {
+      background-color: #202124;
+      color: white;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
+      height: 100vh;
+      margin: 0;
     }
 
-    .login-box {
-      background: rgba(0, 0, 0, 0.75);
-      padding: 40px;
-      border-radius: 8px;
-      width: 100%;
-      max-width: 400px;
-      color: #fff;
+    .calculator {
+      background-color: #303134;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      width: 300px;
     }
 
-    .login-box h1 {
+    .display {
+      background-color: black;
+      color: #0f0;
+      font-size: 2em;
+      padding: 10px;
+      border-radius: 10px;
+      text-align: right;
       margin-bottom: 20px;
-      font-size: 32px;
+      height: 60px;
+      overflow-x: auto;
     }
 
-    .login-box input {
-      width: 100%;
-      padding: 12px;
-      margin: 10px 0;
-      border: none;
-      border-radius: 4px;
-      font-size: 16px;
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
     }
 
-    .login-box button {
-      width: 100%;
-      padding: 12px;
-      background-color: #e50914;
-      color: white;
+    .btn {
+      padding: 20px;
+      font-size: 1.2em;
+      background-color: #505050;
       border: none;
-      font-size: 18px;
-      border-radius: 4px;
+      border-radius: 10px;
       cursor: pointer;
-      margin-top: 10px;
+      color: white;
+      transition: background-color 0.2s ease;
     }
 
-    .login-box a {
-      color: #bbb;
-      font-size: 14px;
-      display: block;
-      margin-top: 10px;
-      text-align: center;
+    .btn:hover {
+      background-color: #686868;
     }
 
-    footer {
-      position: absolute;
-      bottom: 10px;
-      width: 100%;
-      text-align: center;
-      color: #bbb;
-      font-size: 12px;
+    .btn.operator {
+      background-color: #f57c00;
+    }
+
+    .btn.operator:hover {
+      background-color: #fb8c00;
+    }
+
+    .btn.equal {
+      background-color: #0f9d58;
+      grid-column: span 2;
+    }
+
+    .btn.clear {
+      background-color: #d32f2f;
+    }
+
+    .btn.zero {
+      grid-column: span 2;
     }
   </style>
 </head>
 <body>
 
-  <!-- Movie Background -->
-  <div class="background">
-    <img src="https://source.unsplash.com/300x450/?movie,action" alt="">
-    <img src="https://source.unsplash.com/301x450/?movie,comedy" alt="">
-    <img src="https://source.unsplash.com/302x450/?movie,drama" alt="">
-    <img src="https://source.unsplash.com/303x450/?movie,thriller" alt="">
-    <img src="https://source.unsplash.com/304x450/?movie,netflix" alt="">
-    <img src="https://source.unsplash.com/305x450/?cinema" alt="">
-    <img src="https://source.unsplash.com/306x450/?marvel" alt="">
-    <img src="https://source.unsplash.com/307x450/?film" alt="">
-    <img src="https://source.unsplash.com/308x450/?blockbuster" alt="">
-    <img src="https://source.unsplash.com/309x450/?movies" alt="">
-  </div>
+  <div class="calculator">
+    <div class="display" id="display">0</div>
+    <div class="buttons">
+      <button class="btn clear" onclick="clearDisplay()">C</button>
+      <button class="btn operator" onclick="appendOperator('/')">÷</button>
+      <button class="btn operator" onclick="appendOperator('*')">×</button>
+      <button class="btn operator" onclick="appendOperator('-')">−</button>
 
-  <div class="overlay"></div>
+      <button class="btn" onclick="appendNumber('7')">7</button>
+      <button class="btn" onclick="appendNumber('8')">8</button>
+      <button class="btn" onclick="appendNumber('9')">9</button>
+      <button class="btn operator" onclick="appendOperator('+')">+</button>
 
-  <!-- Login Box -->
-  <div class="login-container">
-    <div class="login-box">
-      <h1>Admin Sign In</h1>
-      <input type="text" id="username" placeholder="Username">
-      <input type="password" id="password" placeholder="Password">
-      <button onclick="login()">Login</button>
-      <a href="#">Forgot password?</a>
+      <button class="btn" onclick="appendNumber('4')">4</button>
+      <button class="btn" onclick="appendNumber('5')">5</button>
+      <button class="btn" onclick="appendNumber('6')">6</button>
+      <button class="btn equal" onclick="calculate()">=</button>
+
+      <button class="btn" onclick="appendNumber('1')">1</button>
+      <button class="btn" onclick="appendNumber('2')">2</button>
+      <button class="btn" onclick="appendNumber('3')">3</button>
+      <button class="btn" onclick="appendNumber('.')">.</button>
+
+      <button class="btn zero" onclick="appendNumber('0')">0</button>
     </div>
   </div>
 
-  <footer>
-    &copy; 2025 Nageswararao | Netflix Clone with Admin Login
-  </footer>
-
   <script>
-    function login() {
-      const user = document.getElementById("username").value;
-      const pass = document.getElementById("password").value;
+    let display = document.getElementById("display");
 
-      // Basic check
-      if (user === "admin" && pass === "admin123") {
-        alert("Welcome Admin! ✅ Access Granted");
-        // You can redirect to dashboard.html here
-        // window.location.href = "admin-dashboard.html";
+    function appendNumber(num) {
+      if (display.innerText === "0") {
+        display.innerText = num;
       } else {
-        alert("❌ Invalid credentials. Please try again.");
+        display.innerText += num;
+      }
+    }
+
+    function appendOperator(op) {
+      const lastChar = display.innerText.slice(-1);
+      if ("+-*/".includes(lastChar)) {
+        display.innerText = display.innerText.slice(0, -1) + op;
+      } else {
+        display.innerText += op;
+      }
+    }
+
+    function clearDisplay() {
+      display.innerText = "0";
+    }
+
+    function calculate() {
+      try {
+        display.innerText = eval(display.innerText);
+      } catch (e) {
+        display.innerText = "Error";
       }
     }
   </script>
