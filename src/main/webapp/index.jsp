@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Netflix Clone – Nageswararao Project</title>
+  <title>Netflix Clone – Admin Login</title>
   <style>
     * {
       margin: 0;
@@ -95,10 +95,6 @@
       text-align: center;
     }
 
-    .login-box a:hover {
-      color: white;
-    }
-
     footer {
       position: absolute;
       bottom: 10px;
@@ -111,9 +107,8 @@
 </head>
 <body>
 
-  <!-- Background movie collage -->
+  <!-- Movie Background -->
   <div class="background">
-    <!-- Replace with your own images or movie posters -->
     <img src="https://source.unsplash.com/300x450/?movie,action" alt="">
     <img src="https://source.unsplash.com/301x450/?movie,comedy" alt="">
     <img src="https://source.unsplash.com/302x450/?movie,drama" alt="">
@@ -131,18 +126,32 @@
   <!-- Login Box -->
   <div class="login-container">
     <div class="login-box">
-      <h1>Sign In</h1>
-      <input type="text" placeholder="Email or phone number">
-      <input type="password" placeholder="Password">
-      <button>Sign In</button>
+      <h1>Admin Sign In</h1>
+      <input type="text" id="username" placeholder="Username">
+      <input type="password" id="password" placeholder="Password">
+      <button onclick="login()">Login</button>
       <a href="#">Forgot password?</a>
-      <a href="#">New to Netflix? Sign up now</a>
     </div>
   </div>
 
   <footer>
-    &copy; 2025 Nageswararao | Netflix Clone Project
+    &copy; 2025 Nageswararao | Netflix Clone with Admin Login
   </footer>
 
+  <script>
+    function login() {
+      const user = document.getElementById("username").value;
+      const pass = document.getElementById("password").value;
+
+      // Basic check
+      if (user === "admin" && pass === "admin123") {
+        alert("Welcome Admin! ✅ Access Granted");
+        // You can redirect to dashboard.html here
+        // window.location.href = "admin-dashboard.html";
+      } else {
+        alert("❌ Invalid credentials. Please try again.");
+      }
+    }
+  </script>
 </body>
 </html>
